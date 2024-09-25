@@ -23,10 +23,13 @@
 // app.Run();
 //
 
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using GlukoffRepository.Abstraction;
+using GlukoffRepository.DataAccess;
 using GlukoffRepository.Services;
 
 namespace GlukoffRepository;
@@ -35,10 +38,14 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        var repository = new LocalOrdersRepository("Data Source= C:\\Users\\Alf\\Downloads\\MyWork\\MyWork2\\bin\\Debug\\baza.sqlite");
+        
+        var repository = new LocalOrdersRepository("Data Source=/Users/elena/Desktop/baza.sqlite");
         var orders = await repository.SelectAsync(CancellationToken.None);
         var order = orders.FirstOrDefault();
         var json = JsonSerializer.Serialize(orders.FirstOrDefault());
+        json = JsonSerializer.Serialize(order);
         Console.WriteLine(json);
     }
+    
 }
+
