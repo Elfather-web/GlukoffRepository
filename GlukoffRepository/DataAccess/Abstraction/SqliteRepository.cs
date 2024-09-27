@@ -44,6 +44,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
         var normalisedNames = GetNormalisedPropertyNames<TEntity>();
         var sqlExpression = $"SELECT {normalisedNames}  FROM {tableName}";
         return connection.QueryAsync<TEntity>(sqlExpression);
+        
     }
 
     public Task InsertAsync(TEntity entity, CancellationToken token)

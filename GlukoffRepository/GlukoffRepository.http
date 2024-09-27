@@ -1,6 +1,6 @@
-@GlukoffRepository_HostAddress = http://localhost:5024
+@GlukoffRepository_HostAddress = http://localhost:5128
 
-GET {{GlukoffRepository_HostAddress}}/weatherforecast/
+GET {{GlukoffRepository_HostAddress}}/LocalOrder/
 Accept: application/json
 
 ###

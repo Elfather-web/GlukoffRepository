@@ -1,7 +1,10 @@
 ﻿namespace GlukoffRepository.Abstraction;
 
-public interface IRepository <TEntity>
+
+
+public interface IRepository<TEntity>
 {
+    
     Task <TEntity> SelectAsync(int id,  CancellationToken token);
    
     Task <IEnumerable<TEntity>> SelectAsync(CancellationToken token);
