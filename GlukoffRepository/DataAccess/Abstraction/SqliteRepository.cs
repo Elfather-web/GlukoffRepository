@@ -26,7 +26,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<TEntity>> SelectAsync(CancellationToken token)
+    public async Task<List<TEntity>> SelectAsync(CancellationToken token)
     {
         //Подключаемся к БД, скачиваем. Отключаемся.
         using var connection = new SqliteConnection(_connection);
@@ -42,9 +42,9 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
         //Для каждого свойства получить аттрибут колумн, если его нет то имя. 
 
         var normalisedNames = GetNormalisedPropertyNames<TEntity>();
-        var sqlExpression = $"SELECT {normalisedNames}  FROM {tableName}";
-        return connection.QueryAsync<TEntity>(sqlExpression);
-        
+        var sqlExpression = $"SELECT {normalisedNames} FROM {tableName}";
+        var rows = await connection.QueryAsync<TEntity>(sqlExpression);
+        return rows.ToList();
     }
 
     public Task InsertAsync(TEntity entity, CancellationToken token)

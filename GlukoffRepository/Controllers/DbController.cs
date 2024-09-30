@@ -3,6 +3,7 @@ using GlukoffRepository.Abstraction;
 using GlukoffRepository.DataAccess;
 using GlukoffRepository.Services;
 using Microsoft.AspNetCore.Mvc;
+using Mysqlx.Crud;
 
 
 namespace GlukoffRepository.Controllers;
@@ -23,8 +24,8 @@ public class DbController : ControllerBase
     {
         // _repository = new LocalOrdersRepository("Data Source=/Users/elena/Desktop/baza.sqlite");
         var orders = await _repository.GetOrderAsync();
-        var order = orders.FirstOrDefault();
-        var json = JsonSerializer.SerializeToDocument(order);
+        //var order = orders.FirstOrDefault();
+        var json = JsonSerializer.SerializeToDocument(orders);
         return Ok(json);
     }
 

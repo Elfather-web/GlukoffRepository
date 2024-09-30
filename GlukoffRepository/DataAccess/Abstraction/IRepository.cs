@@ -7,7 +7,7 @@ public interface IRepository<TEntity>
     
     Task <TEntity> SelectAsync(int id,  CancellationToken token);
    
-    Task <IEnumerable<TEntity>> SelectAsync(CancellationToken token);
+    Task<List<TEntity>> SelectAsync(CancellationToken token);
    
     Task InsertAsync(TEntity entity, CancellationToken token);
     
