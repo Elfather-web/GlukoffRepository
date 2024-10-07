@@ -47,6 +47,6 @@ public class DbController : ControllerBase
     public async Task<ActionResult> UpdateLocalOrder(LocalOrder order)
     {
         await _repository.UpdateOrderAsync(order);
-        return Ok(order);
+        return Ok(JsonSerializer.SerializeToDocument(await _repository.GetOrdersAsync()));
     }
 }
