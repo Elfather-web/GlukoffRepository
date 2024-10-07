@@ -10,6 +10,8 @@ public interface IServiceLocalDB
 
     public Task CreateOrderAsync(LocalOrder order);
 
+    public Task UpdateOrderAsync(LocalOrder order);
+
 
 
 }

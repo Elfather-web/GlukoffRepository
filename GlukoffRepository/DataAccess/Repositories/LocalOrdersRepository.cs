@@ -1,14 +1,14 @@
 ﻿using GlukoffRepository.Abstraction;
 using GlukoffRepository.DataAccess;
 
-
 namespace GlukoffRepository.Services;
 
 public class LocalOrdersRepository : SqliteRepository<LocalOrder>, IServiceLocalDB
 {
-    private IServiceLocalDB _serviceLocalDbImplementation;
+    
 
-    public LocalOrdersRepository(string connection="Data Source=/Users/aleksandrlebedev/Documents/GitHub/GlukoffRepository/GlukoffRepository/baza.sqlite") : base(connection)
+    public LocalOrdersRepository(
+        string connection = "Data Source=C:\\Git\\GlukoffRepository\\GlukoffRepository\\baza.sqlite") : base(connection)
     {
     }
 
@@ -23,12 +23,13 @@ public class LocalOrdersRepository : SqliteRepository<LocalOrder>, IServiceLocal
     }
 
 
-
     public Task CreateOrderAsync(LocalOrder order)
     {
-        
         return InsertAsync(order, CancellationToken.None);
     }
 
-   
+    public Task UpdateOrderAsync(LocalOrder order)
+    {
+        return UpdateAsync(order, CancellationToken.None);
+    }
 }

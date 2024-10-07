@@ -61,13 +61,17 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
     public async Task InsertAsync(TEntity entity, CancellationToken token)
     {
         using var connection = new SqliteConnection(_connection);
-        await connection.ExecuteAsync("INSERT INTO Catalog (id, Data_priema, WhatRemont, Status_remonta) VALUES (@Id, @DateOrder, @Tittle, @Status)", entity);
-        
+        await connection.ExecuteAsync("INSERT INTO Catalog (id, Data_priema, WhatRemont, Status_remonta) " +
+                                      "VALUES (@Id, @DateOrder, @Tittle, @Status)", entity);
     }
     
-    public Task UpdateAsync(TEntity entity, CancellationToken token)
+    public async Task UpdateAsync(TEntity entity, CancellationToken token)
     {
-        throw new NotImplementedException();
+        using var connection = new SqliteConnection(_connection);
+        await connection.ExecuteAsync("UPDATE Catalog set  " +
+                                      "Data_priema = @DateOrder, " +
+                                      "WhatRemont = @Tittle, " +
+                                      "Status_remonta = @Status where id=@Id", entity);
     }
 
     public Task DeleteAsync(TEntity entity, CancellationToken token)

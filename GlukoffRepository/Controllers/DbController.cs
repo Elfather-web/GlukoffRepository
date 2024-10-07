@@ -42,4 +42,11 @@ public class DbController : ControllerBase
         await _repository.CreateOrderAsync(order);
         return Ok(order);
     }
+
+    [HttpPut("UpdateLocalOrder")]
+    public async Task<ActionResult> UpdateLocalOrder(LocalOrder order)
+    {
+        await _repository.UpdateOrderAsync(order);
+        return Ok(order);
+    }
 }
