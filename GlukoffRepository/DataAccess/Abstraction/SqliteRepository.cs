@@ -21,14 +21,8 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
         _connection = connection;
     }
 
-    public Task<TEntity> SelectAsync(int id, CancellationToken token)
+    public async Task<TEntity> SelectAsync(int orderId, CancellationToken token)
     {
-        throw new NotImplementedException();
-    }
-
-    public async Task<List<TEntity>> SelectAsync(CancellationToken token)
-    {
-        //Подключаемся к БД, скачиваем. Отключаемся.
         using var connection = new SqliteConnection(_connection);
         connection.Open();
 
@@ -38,8 +32,25 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
 
         var tableName =
             tableAttribute is not null ? tableAttribute.Name : typeof(TEntity).Name;
-        //Получить публичные свойства из т энтити, с помощью рефлексии.
-        //Для каждого свойства получить аттрибут колумн, если его нет то имя. 
+        var normalisedNames = GetNormalisedPropertyNames<TEntity>();
+        var sqlExpression = $"SELECT {normalisedNames} FROM {tableName} where id={orderId}";
+        var order = connection.QueryFirst<TEntity>(sqlExpression);
+        return order;
+    }
+
+    public async Task<List<TEntity>> SelectAsyncRows(CancellationToken token)
+    {
+        //Подключаемся к БД, скачиваем.
+        using var connection = new SqliteConnection(_connection);
+        connection.Open();
+
+        var tableAttribute = typeof(TEntity)
+            .GetCustomAttributes(typeof(TableAttribute), true)
+            .FirstOrDefault() as TableAttribute;
+
+        var tableName =
+            tableAttribute is not null ? tableAttribute.Name : typeof(TEntity).Name;
+         
 
         var normalisedNames = GetNormalisedPropertyNames<TEntity>();
         var sqlExpression = $"SELECT {normalisedNames} FROM {tableName}";
@@ -47,11 +58,13 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
         return rows.ToList();
     }
 
-    public Task InsertAsync(TEntity entity, CancellationToken token)
+    public async Task InsertAsync(TEntity entity, CancellationToken token)
     {
-        throw new NotImplementedException();
+        using var connection = new SqliteConnection(_connection);
+        await connection.ExecuteAsync("INSERT INTO Catalog (id, Data_priema, WhatRemont, Status_remonta) VALUES (@Id, @DateOrder, @Tittle, @Status)", entity);
+        
     }
-
+    
     public Task UpdateAsync(TEntity entity, CancellationToken token)
     {
         throw new NotImplementedException();
@@ -77,4 +90,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
         }
         return string.Join(',', normalisedNames);
     }
+    
+    
+
 }

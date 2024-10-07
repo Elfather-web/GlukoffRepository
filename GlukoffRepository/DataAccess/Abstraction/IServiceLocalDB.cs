@@ -4,8 +4,12 @@ namespace GlukoffRepository.Abstraction;
 
 public interface IServiceLocalDB
 {
-    public Task<List<LocalOrder>> GetOrderAsync();
-   
-   
+    public Task<List<LocalOrder>> GetOrdersAsync();
+
+    public Task<LocalOrder> GetOrderAsync(int orderId);
+
+    public Task CreateOrderAsync(LocalOrder order);
+
+
 
 }

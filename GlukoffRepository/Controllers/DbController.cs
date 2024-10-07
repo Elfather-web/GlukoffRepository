@@ -12,7 +12,7 @@ namespace GlukoffRepository.Controllers;
 [Route("api/[Controller]")]
 public class DbController : ControllerBase
 {
-    private  readonly IServiceLocalDB _repository;
+    private readonly IServiceLocalDB _repository;
 
     public DbController(IServiceLocalDB repository)
     {
@@ -22,12 +22,24 @@ public class DbController : ControllerBase
     [HttpGet("GetLocalOrders")]
     public async Task<ActionResult> GetLocalOrders()
     {
-        // _repository = new LocalOrdersRepository("Data Source=/Users/elena/Desktop/baza.sqlite");
-        var orders = await _repository.GetOrderAsync();
-        //var order = orders.FirstOrDefault();
+        var orders = await _repository.GetOrdersAsync();
         var json = JsonSerializer.SerializeToDocument(orders);
         return Ok(json);
     }
 
+    [HttpGet("GetLocalOrder")]
+    public async Task<ActionResult> GetLocalOrder(int orderId)
+    {
+        var order = await _repository.GetOrderAsync(orderId);
+        var json = JsonSerializer.SerializeToDocument(order);
+        return Ok(json);
+        
+    }
 
+    [HttpPost("PostLocalOrder")]
+    public async Task<ActionResult> PostLocalOrder(LocalOrder order)
+    {
+        await _repository.CreateOrderAsync(order);
+        return Ok(order);
+    }
 }
