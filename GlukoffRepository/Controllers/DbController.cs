@@ -58,3 +58,25 @@ public class LocalDBController : ControllerBase
         return Ok(JsonSerializer.SerializeToDocument(await _repository.GetOrdersAsync()));
     }
 }
+
+[ApiController]
+[Route("api/[Controller]")]
+public class RemoteDbController : ControllerBase
+{
+    private readonly IServiceMsqlDB _repository;
+
+    public RemoteDbController(IServiceMsqlDB repository)
+    {
+        _repository = repository;
+    }
+        
+    [HttpGet("GetGlukOffOrder")]
+    public async Task<ActionResult> GetRemoteOrder(int orderId)
+    {
+        var order = await _repository.GetOrderAsync(orderId);
+        var json = JsonSerializer.SerializeToDocument(order);
+        return Ok(json);
+        
+    }
+}
+

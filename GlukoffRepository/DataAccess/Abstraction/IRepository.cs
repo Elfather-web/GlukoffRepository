@@ -5,7 +5,7 @@
 public interface IRepository<TEntity>
 {
     
-    Task <TEntity> SelectAsync(int orderId,  CancellationToken token);
+    Task <TEntity> SelectAsync(int id,  CancellationToken token);
    
     Task<List<TEntity>> SelectAsyncRows(CancellationToken token);
    

@@ -21,7 +21,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
         _connection = connection;
     }
 
-    public async Task<TEntity> SelectAsync(int orderId, CancellationToken token)
+    public async Task<TEntity> SelectAsync(int id, CancellationToken token)
     {
         using var connection = new SqliteConnection(_connection);
         connection.Open();
@@ -33,7 +33,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
         var tableName =
             tableAttribute is not null ? tableAttribute.Name : typeof(TEntity).Name;
         var normalisedNames = GetNormalisedPropertyNames<TEntity>();
-        var sqlExpression = $"SELECT {normalisedNames} FROM {tableName} where id={orderId}";
+        var sqlExpression = $"SELECT {normalisedNames} FROM {tableName} where id={id}";
         var order = connection.QueryFirst<TEntity>(sqlExpression);
         return order;
     }

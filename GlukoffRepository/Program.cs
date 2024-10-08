@@ -13,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IServiceLocalDB, LocalOrdersRepository>();
+builder.Services.AddScoped<IServiceMsqlDB, GlukoffOrdersRepository>();
 
 var app = builder.Build();
 
@@ -28,21 +29,4 @@ app.MapControllers();
 app.UseHttpsRedirection();
 
 app.Run();
-
-// namespace GlukoffRepository;
-
-// public class Program
-// {
-//     public static async Task Main(string[] args)
-//     {
-//         
-//         var repository = new LocalOrdersRepository("Data Source=/Users/elena/Desktop/baza.sqlite");
-//         var orders = await repository.SelectAsync(CancellationToken.None);
-//         var order = orders.FirstOrDefault();
-//         var json = JsonSerializer.Serialize(orders.FirstOrDefault());
-//         json = JsonSerializer.Serialize(order);
-//         Console.WriteLine(json);
-//     }
-//     
-// }
 
