@@ -10,11 +10,11 @@ namespace GlukoffRepository.Controllers;
 
 [ApiController]
 [Route("api/[Controller]")]
-public class DbController : ControllerBase
+public class LocalDBController : ControllerBase
 {
     private readonly IServiceLocalDB _repository;
 
-    public DbController(IServiceLocalDB repository)
+    public LocalDBController(IServiceLocalDB repository)
     {
         _repository = repository;
     }
@@ -47,6 +47,14 @@ public class DbController : ControllerBase
     public async Task<ActionResult> UpdateLocalOrder(LocalOrder order)
     {
         await _repository.UpdateOrderAsync(order);
+        return Ok(JsonSerializer.SerializeToDocument(await _repository.GetOrdersAsync()));
+    }
+
+    [HttpDelete("DeleteLocalOrder")]
+
+    public async Task<ActionResult> DeleteLocalOrder(LocalOrder order)
+    {
+        await _repository.DeleteOrderAsync(order);
         return Ok(JsonSerializer.SerializeToDocument(await _repository.GetOrdersAsync()));
     }
 }

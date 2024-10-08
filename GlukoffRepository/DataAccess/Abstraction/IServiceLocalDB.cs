@@ -12,6 +12,8 @@ public interface IServiceLocalDB
 
     public Task UpdateOrderAsync(LocalOrder order);
 
+    public Task DeleteOrderAsync(LocalOrder order);
+
 
 
 }

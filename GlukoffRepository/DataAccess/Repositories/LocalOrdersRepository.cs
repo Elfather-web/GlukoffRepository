@@ -32,4 +32,9 @@ public class LocalOrdersRepository : SqliteRepository<LocalOrder>, IServiceLocal
     {
         return UpdateAsync(order, CancellationToken.None);
     }
+
+    public Task DeleteOrderAsync(LocalOrder order)
+    {
+        return DeleteAsync(order, CancellationToken.None);
+    }
 }

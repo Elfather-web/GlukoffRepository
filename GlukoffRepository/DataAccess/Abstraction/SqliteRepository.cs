@@ -74,9 +74,10 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
                                       "Status_remonta = @Status where id=@Id", entity);
     }
 
-    public Task DeleteAsync(TEntity entity, CancellationToken token)
+    public async Task DeleteAsync(TEntity entity, CancellationToken token)
     {
-        throw new NotImplementedException();
+        using var connection = new SqliteConnection(_connection);
+        await connection.ExecuteAsync("DELETE FROM Catalog WHERE id=@Id", entity);
     }
 
 
