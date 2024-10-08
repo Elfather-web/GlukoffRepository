@@ -3,22 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SyncRepositories"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
-    <Grid>                      
-        <Grid.RowDefinitions>   
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-        <ColumnDefinition/>
-            
-        <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
-        <Button x:Name="Upload" Click="Upload_OnClick" >Залить заявки</Button>
+            <ColumnDefinition />
+
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button x:Name="Upload" Click="Upload_OnClick">Залить заявки</Button>
     </Grid>
 </Window>

@@ -3,8 +3,6 @@ using GlukoffRepository.Abstraction;
 using GlukoffRepository.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 
-
-
 namespace GlukoffRepository.Controllers;
 
 [ApiController]
@@ -32,7 +30,6 @@ public class LocalDbController : ControllerBase
         var order = await _repository.GetOrderAsync(orderId);
         var json = JsonSerializer.SerializeToDocument(order);
         return Ok(json);
-        
     }
 
     [HttpPost("PostLocalOrder")]
@@ -51,7 +48,6 @@ public class LocalDbController : ControllerBase
     }
 
     [HttpDelete("DeleteLocalOrder")]
-
     public async Task<ActionResult> DeleteLocalOrder(LocalOrder order)
     {
         await _repository.DeleteOrderAsync(order);
@@ -69,25 +65,23 @@ public class RemoteDbController : ControllerBase
     {
         _repository = repository;
     }
-        
+
     [HttpGet("GetGlukOffOrder")]
     public async Task<ActionResult> GetRemoteOrder(int orderId)
     {
         var order = await _repository.GetOrderAsync(orderId);
         var json = JsonSerializer.SerializeToDocument(order);
         return Ok(json);
-        
     }
 
     [HttpGet("GetGlukOffOrders")]
-
     public async Task<ActionResult> GetRemoteOrders()
     {
         var orders = await _repository.GetOrdersAsync();
         var json = JsonSerializer.SerializeToDocument(orders);
         return Ok(json);
     }
-    
+
     [HttpPost("PostGlukOffOrder")]
     public async Task<ActionResult> PostRemoteOrder(RemoteOrder order)
     {
@@ -110,4 +104,3 @@ public class RemoteDbController : ControllerBase
         return Ok(JsonSerializer.SerializeToDocument(await _repository.GetOrdersAsync()));
     }
 }
-
