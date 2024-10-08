@@ -9,11 +9,12 @@ namespace GlukoffRepository.Abstraction;
 
 public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
 {
+    private readonly IConfiguration _config;
     private readonly string _connection;
-
-    public SqliteRepository(string connection)
+    public SqliteRepository(IConfiguration config)
     {
-        _connection = connection;
+        _config = config;
+        _connection = _config.GetConnectionString("LocalOrderConnection");
     }
 
     public async Task<TEntity> SelectAsync(int id, CancellationToken token)

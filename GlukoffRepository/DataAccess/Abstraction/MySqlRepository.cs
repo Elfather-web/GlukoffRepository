@@ -9,11 +9,15 @@ namespace GlukoffRepository.Abstraction;
 
 public abstract class MySqlRepository <TEntity> : IRepository <TEntity>
 {
+    private readonly IConfiguration _config;
     private readonly string _connection;
-    public MySqlRepository(string connection)
+    public MySqlRepository(IConfiguration config)
     {
-        _connection = connection;
+        _config = config;
+        _connection = _config.GetConnectionString("RemoteOrderConnection");
     }
+
+   
 
     public async Task<TEntity> SelectAsync(int id, CancellationToken token)
     {

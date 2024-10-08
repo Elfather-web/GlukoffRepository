@@ -4,10 +4,7 @@ namespace GlukoffRepository.Services;
 
 public class LocalOrdersRepository : SqliteRepository<LocalOrder>, IServiceLocalDb
 {
-    
-
-    public LocalOrdersRepository(
-        string connection = "Data Source=C:\\Git\\GlukoffRepository\\GlukoffRepository\\baza.sqlite") : base(connection)
+    public LocalOrdersRepository(IConfiguration config) : base(config)
     {
     }
 

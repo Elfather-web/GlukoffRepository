@@ -4,7 +4,7 @@ namespace GlukoffRepository.Services;
 
 public class GlukoffOrdersRepository : MySqlRepository<RemoteOrder>, IServiceMsqlDb
 {
-    public GlukoffOrdersRepository(string connection = "server=localhost; user id=root; password=password; database=mysql;") : base(connection)
+    public GlukoffOrdersRepository(IConfiguration config) : base(config)
     {
         
     }
