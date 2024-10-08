@@ -1,8 +1,4 @@
-
-using System.Text.Json;
 using GlukoffRepository.Abstraction;
-using GlukoffRepository.Controllers;
-using GlukoffRepository.DataAccess;
 using GlukoffRepository.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IServiceLocalDB, LocalOrdersRepository>();
-builder.Services.AddScoped<IServiceMsqlDB, GlukoffOrdersRepository>();
+builder.Services.AddScoped<IServiceLocalDb, LocalOrdersRepository>();
+builder.Services.AddScoped<IServiceMsqlDb, GlukoffOrdersRepository>();
 
 var app = builder.Build();
 

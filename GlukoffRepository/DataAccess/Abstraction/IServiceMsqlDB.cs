@@ -1,7 +1,7 @@
 ﻿using GlukoffRepository.DataAccess;
 namespace GlukoffRepository.Abstraction;
 
-public interface IServiceMsqlDB
+public interface IServiceMsqlDb
 {
     public Task<List<RemoteOrder>> GetOrdersAsync();
 

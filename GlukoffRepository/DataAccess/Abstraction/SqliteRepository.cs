@@ -1,13 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Net.Mime;
+
 using System.Reflection;
 using Dapper;
-using GlukoffRepository.DataAccess;
-using GlukoffRepository.Services;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.Data.Sqlite;
-using MySqlX.XDevAPI.Relational;
 using TableAttribute = System.ComponentModel.DataAnnotations.Schema.TableAttribute;
 
 namespace GlukoffRepository.Abstraction;
@@ -34,7 +29,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
             tableAttribute is not null ? tableAttribute.Name : typeof(TEntity).Name;
         var normalisedNames = GetNormalisedPropertyNames<TEntity>();
         var sqlExpression = $"SELECT {normalisedNames} FROM {tableName} where id={id}";
-        var order = connection.QueryFirst<TEntity>(sqlExpression);
+        var order =  connection.QueryFirst<TEntity>(sqlExpression);
         return order;
     }
 

@@ -8,7 +8,4 @@ public record LocalOrder([property: Column("id")] long Id,
   [property: Column("WhatRemont")] string Tittle,
   [property: Column("Status_remonta")] string Status);
 
-    // [Column("id")] public int Id { get; set; }
-    // [Column("Data_priema")] public string DateOrder { get; set; }
-    // [Column("WhatRemont")] public string Tittle { get; set; }
-    // [Column("Status_remonta")] public string Status { get; set; }
+    

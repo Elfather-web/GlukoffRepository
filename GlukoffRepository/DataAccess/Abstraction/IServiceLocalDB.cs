@@ -1,8 +1,7 @@
 using GlukoffRepository.DataAccess;
-
 namespace GlukoffRepository.Abstraction;
 
-public interface IServiceLocalDB
+public interface IServiceLocalDb
 {
     public Task<List<LocalOrder>> GetOrdersAsync();
 
