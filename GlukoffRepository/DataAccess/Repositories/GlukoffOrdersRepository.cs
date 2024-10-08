@@ -1,13 +1,14 @@
 ﻿using GlukoffRepository.Abstraction;
 using GlukoffRepository.DataAccess;
+
 namespace GlukoffRepository.Services;
 
 public class GlukoffOrdersRepository : MySqlRepository<RemoteOrder>, IServiceMsqlDb
 {
     public GlukoffOrdersRepository(IConfiguration config) : base(config)
     {
-        
     }
+
     public Task<List<RemoteOrder>> GetOrdersAsync()
     {
         return SelectAsyncRows(CancellationToken.None);

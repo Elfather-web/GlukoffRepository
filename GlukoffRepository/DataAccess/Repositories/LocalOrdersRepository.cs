@@ -1,5 +1,6 @@
 ﻿using GlukoffRepository.Abstraction;
 using GlukoffRepository.DataAccess;
+
 namespace GlukoffRepository.Services;
 
 public class LocalOrdersRepository : SqliteRepository<LocalOrder>, IServiceLocalDb

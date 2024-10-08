@@ -2,11 +2,11 @@
 using GlukoffRepository.DataAccess;
 using Microsoft.Extensions.Configuration;
 
-namespace Alf.Services;
+namespace SyncRepositories.Services;
 
 public class LocalOrdersRepository : SqliteRepository<LocalOrder>, IServiceLocalDb
 {
-    public LocalOrdersRepository(IConfiguration config) : base(config)
+    public LocalOrdersRepository(string connection) : base(connection)
     {
     }
 

@@ -1,4 +1,5 @@
 using GlukoffRepository.DataAccess;
+
 namespace GlukoffRepository.Abstraction;
 
 public interface IServiceLocalDb
@@ -12,7 +13,4 @@ public interface IServiceLocalDb
     public Task UpdateOrderAsync(LocalOrder order);
 
     public Task DeleteOrderAsync(LocalOrder order);
-
-
-
 }

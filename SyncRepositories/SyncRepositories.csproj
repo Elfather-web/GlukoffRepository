@@ -8,4 +8,20 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\DataAcces\DataAcces.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Include="appsettings.json">
+<!--        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>-->
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+<!--        <CopyToPublishDirectory>Always</CopyToPublishDirectory>-->
+      </None>
+    </ItemGroup>
+
 </Project>

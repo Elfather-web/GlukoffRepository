@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
 using System.Reflection;
 using Dapper;
 using Microsoft.Data.Sqlite;
@@ -11,6 +10,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
 {
     private readonly IConfiguration _config;
     private readonly string _connection;
+
     public SqliteRepository(IConfiguration config)
     {
         _config = config;
@@ -30,7 +30,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
             tableAttribute is not null ? tableAttribute.Name : typeof(TEntity).Name;
         var normalisedNames = GetNormalisedPropertyNames<TEntity>();
         var sqlExpression = $"SELECT {normalisedNames} FROM {tableName} where id={id}";
-        var order =  connection.QueryFirst<TEntity>(sqlExpression);
+        var order = connection.QueryFirst<TEntity>(sqlExpression);
         return order;
     }
 
@@ -46,7 +46,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
 
         var tableName =
             tableAttribute is not null ? tableAttribute.Name : typeof(TEntity).Name;
-         
+
 
         var normalisedNames = GetNormalisedPropertyNames<TEntity>();
         var sqlExpression = $"SELECT {normalisedNames} FROM {tableName}";
@@ -60,7 +60,7 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
         await connection.ExecuteAsync("INSERT INTO Catalog (id, Data_priema, WhatRemont, Status_remonta) " +
                                       "VALUES (@Id, @DateOrder, @Tittle, @Status)", entity);
     }
-    
+
     public async Task UpdateAsync(TEntity entity, CancellationToken token)
     {
         using var connection = new SqliteConnection(_connection);
@@ -80,18 +80,16 @@ public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
     private static string GetNormalisedPropertyNames<TEntity>()
     {
         var properties = typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        var normalisedNames = new List <string>();
+        var normalisedNames = new List<string>();
         foreach (var p in properties)
         {
             var columnAttribute =
                 p.GetCustomAttributes(typeof(ColumnAttribute), true).FirstOrDefault() as ColumnAttribute;
             var columnName =
                 columnAttribute is not null ? columnAttribute.Name : p.Name;
-            normalisedNames .Add($"{columnName} as {p.Name}");
+            normalisedNames.Add($"{columnName} as {p.Name}");
         }
+
         return string.Join(',', normalisedNames);
     }
-    
-    
-
 }
