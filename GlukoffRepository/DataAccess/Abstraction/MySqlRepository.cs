@@ -1,14 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Net.Mime;
+
 using System.Reflection;
 using Dapper;
-using GlukoffRepository.DataAccess;
-using GlukoffRepository.Services;
-using Google.Protobuf.WellKnownTypes;
-using Microsoft.Data.Sqlite;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Relational;
 using TableAttribute = System.ComponentModel.DataAnnotations.Schema.TableAttribute;
 
 namespace GlukoffRepository.Abstraction;
@@ -38,30 +32,45 @@ public abstract class MySqlRepository <TEntity> : IRepository <TEntity>
 
     }
 
-    public Task<List<TEntity>> SelectAsyncRows(CancellationToken token)
+    public async Task<List<TEntity>> SelectAsyncRows(CancellationToken token)
     {
-        throw new NotImplementedException();
+        using var connection = new MySqlConnection(_connection);
+        connection.Open();
+
+        var tableAttribute = typeof(TEntity)
+            .GetCustomAttributes(typeof(TableAttribute), true)
+            .FirstOrDefault() as TableAttribute;
+        var tableName =
+            tableAttribute is not null ? tableAttribute.Name : typeof(TEntity).Name;
+        var normalisedNames = GetNormalisedPropertyNames<TEntity>();
+        var sqlExpression = $"SELECT {normalisedNames} FROM {tableName}";
+        var rows = await connection.QueryAsync<TEntity>(sqlExpression);
+        return rows.ToList();
+    }
+    
+
+    public async Task InsertAsync(TEntity entity, CancellationToken token)
+    {
+        using var connection = new MySqlConnection(_connection);
+        await connection.ExecuteAsync("INSERT INTO fdT234Tf_statusoforders (orderid, ordertittle, orderstatus, orderdate) " +
+                                      "VALUES (@Id, @Tittle, @Status, @DateOrder)", entity);
     }
 
-    public Task<List<TEntity>> SelectAsync(CancellationToken token)
+    public async Task UpdateAsync(TEntity entity, CancellationToken token)
     {
-        throw new NotImplementedException();
+        using var connection = new MySqlConnection(_connection);
+        await connection.ExecuteAsync("UPDATE fdT234Tf_statusoforders set  " +
+                                      "orderdate = @DateOrder, " +
+                                      "ordertittle = @Tittle, " +
+                                      "orderstatus = @Status where orderid=@Id", entity);
     }
 
-    public Task InsertAsync(TEntity entity, CancellationToken token)
+    public async Task DeleteAsync(TEntity entity, CancellationToken token)
     {
-        throw new NotImplementedException();
+        using var connection = new MySqlConnection(_connection);
+        await connection.ExecuteAsync("DELETE FROM fdT234Tf_statusoforders WHERE orderid=@Id", entity);
     }
-
-    public Task UpdateAsync(TEntity entity, CancellationToken token)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteAsync(TEntity entity, CancellationToken token)
-    {
-        throw new NotImplementedException();
-    }
+    
     private static string GetNormalisedPropertyNames<TEntity>()
     {
         var properties = typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance);

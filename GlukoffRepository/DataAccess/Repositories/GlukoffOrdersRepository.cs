@@ -10,7 +10,7 @@ public class GlukoffOrdersRepository : MySqlRepository<RemoteOrder>, IServiceMsq
     }
     public Task<List<RemoteOrder>> GetOrdersAsync()
     {
-        throw new NotImplementedException();
+        return SelectAsyncRows(CancellationToken.None);
     }
 
     public Task<RemoteOrder> GetOrderAsync(int orderId)
@@ -20,16 +20,16 @@ public class GlukoffOrdersRepository : MySqlRepository<RemoteOrder>, IServiceMsq
 
     public Task CreateOrderAsync(RemoteOrder order)
     {
-        throw new NotImplementedException();
+        return InsertAsync(order, CancellationToken.None);
     }
 
     public Task UpdateOrderAsync(RemoteOrder order)
     {
-        throw new NotImplementedException();
+        return UpdateAsync(order, CancellationToken.None);
     }
 
     public Task DeleteOrderAsync(RemoteOrder order)
     {
-        throw new NotImplementedException();
+        return DeleteAsync(order, CancellationToken.None);
     }
 }

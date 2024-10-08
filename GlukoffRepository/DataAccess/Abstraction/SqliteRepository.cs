@@ -1,13 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Net.Mime;
+
 using System.Reflection;
 using Dapper;
-using GlukoffRepository.DataAccess;
-using GlukoffRepository.Services;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.Data.Sqlite;
-using MySqlX.XDevAPI.Relational;
 using TableAttribute = System.ComponentModel.DataAnnotations.Schema.TableAttribute;
 
 namespace GlukoffRepository.Abstraction;

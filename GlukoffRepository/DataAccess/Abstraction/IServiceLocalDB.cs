@@ -1,5 +1,4 @@
 using GlukoffRepository.DataAccess;
-
 namespace GlukoffRepository.Abstraction;
 
 public interface IServiceLocalDB

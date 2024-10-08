@@ -1,8 +1,4 @@
-
-using System.Text.Json;
 using GlukoffRepository.Abstraction;
-using GlukoffRepository.Controllers;
-using GlukoffRepository.DataAccess;
 using GlukoffRepository.Services;
 
 var builder = WebApplication.CreateBuilder(args);

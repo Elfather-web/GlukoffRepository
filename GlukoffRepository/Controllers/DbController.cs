@@ -1,9 +1,8 @@
 using System.Text.Json;
 using GlukoffRepository.Abstraction;
 using GlukoffRepository.DataAccess;
-using GlukoffRepository.Services;
 using Microsoft.AspNetCore.Mvc;
-using Mysqlx.Crud;
+
 
 
 namespace GlukoffRepository.Controllers;
@@ -47,7 +46,8 @@ public class LocalDBController : ControllerBase
     public async Task<ActionResult> UpdateLocalOrder(LocalOrder order)
     {
         await _repository.UpdateOrderAsync(order);
-        return Ok(JsonSerializer.SerializeToDocument(await _repository.GetOrdersAsync()));
+        var json = JsonSerializer.SerializeToDocument(await _repository.GetOrdersAsync());
+        return Ok(json);
     }
 
     [HttpDelete("DeleteLocalOrder")]
@@ -77,6 +77,37 @@ public class RemoteDbController : ControllerBase
         var json = JsonSerializer.SerializeToDocument(order);
         return Ok(json);
         
+    }
+
+    [HttpGet("GetGlukOffOrders")]
+
+    public async Task<ActionResult> GetRemoteOrders()
+    {
+        var orders = await _repository.GetOrdersAsync();
+        var json = JsonSerializer.SerializeToDocument(orders);
+        return Ok(json);
+    }
+    
+    [HttpPost("PostGlukOffOrder")]
+    public async Task<ActionResult> PostRemoteOrder(RemoteOrder order)
+    {
+        await _repository.CreateOrderAsync(order);
+        return Ok(order);
+    }
+
+    [HttpPut("UpdateGlukOffOrder")]
+    public async Task<ActionResult> UpdateRemoteOrder(RemoteOrder order)
+    {
+        await _repository.UpdateOrderAsync(order);
+        var json = JsonSerializer.SerializeToDocument(await _repository.GetOrdersAsync());
+        return Ok(json);
+    }
+
+    [HttpDelete("DeleteGlukOffOrder")]
+    public async Task<ActionResult> DeleteRemoteOrder(RemoteOrder order)
+    {
+        await _repository.DeleteOrderAsync(order);
+        return Ok(JsonSerializer.SerializeToDocument(await _repository.GetOrdersAsync()));
     }
 }
 
