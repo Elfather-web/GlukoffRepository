@@ -1,9 +1,10 @@
 ﻿using System.IO;
 using System.Windows;
-using GlukoffRepository.DataAccess;
-using Microsoft.Extensions.Configuration;
+using System.Windows.Documents;
+using DataAcces;
 using Newtonsoft.Json;
 using SyncRepositories.Services;
+using Order = Mysqlx.Crud.Order;
 
 namespace SyncRepositories;
 
@@ -12,29 +13,34 @@ namespace SyncRepositories;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private Settings _settings = new Settings();
+    private readonly Settings _settings = new();
 
     public MainWindow()
     {
-        
         var json = File.ReadAllText(".\\appsettings.json");
-        if (!string.IsNullOrEmpty(json))
-        {
-            _settings = JsonConvert.DeserializeObject<Settings>(json);
-        }
+        if (!string.IsNullOrEmpty(json)) _settings = JsonConvert.DeserializeObject<Settings>(json);
 
         InitializeComponent();
     }
 
-    private void Upload_OnClick(object sender, RoutedEventArgs e)
+    private async void Upload_OnClick(object sender, RoutedEventArgs e)
     {
-        var connection = _settings.ConnectionStrings.LocalOrderConnection;
-        LocalOrdersRepository Localorders = new LocalOrdersRepository(connection);
-        var orders = Localorders.GetOrdersAsync();
-        //скачиваем все строки с локальной и удаленной дб
-        //исключаем неравные строки
-        //заливаем отсутсвующие на удаеленный
-        //обновляем локальный
-        //"LINQ" 
+        var localConnection = _settings.ConnectionStrings.LocalOrderConnection;
+        var remoteConnection = _settings.ConnectionStrings.RemoteOrderConnection;
+        var remote = new GlukoffOrdersRepository(remoteConnection);
+        var local = new LocalOrdersRepository(localConnection);
+
+        var localorders = await local.GetOrdersAsync();
+        var remoteorders = await remote.GetOrdersAsync();
+
+        var localBuff = localorders.Select(l => BuffOrder.FromLocal(l)).ToHashSet();
+        var remoteBuff = remoteorders.Select(r => BuffOrder.FromRemote(r)).ToHashSet();
+        var resultbuff = localBuff.Except(remoteBuff);
+
+
+        //получаем айди заказов из ремутордерс.ToHashSet(); 
+        //Для каждого в резалтбафф проверяем есть ли он на ремуте по айди
+        //если есть обновляем если нет заливаем
+        
     }
 }

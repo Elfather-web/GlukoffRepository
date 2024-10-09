@@ -2,19 +2,16 @@
 using System.Reflection;
 using Dapper;
 using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Configuration;
 using TableAttribute = System.ComponentModel.DataAnnotations.Schema.TableAttribute;
 
 namespace GlukoffRepository.Abstraction;
 
 public abstract class SqliteRepository<TEntity> : IRepository<TEntity>
 {
-
     private readonly string _connection;
 
     public SqliteRepository(string connection)
     {
-
         _connection = connection;
     }
 

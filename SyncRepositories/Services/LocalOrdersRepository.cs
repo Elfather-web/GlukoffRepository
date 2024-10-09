@@ -1,6 +1,5 @@
 ﻿using GlukoffRepository.Abstraction;
 using GlukoffRepository.DataAccess;
-using Microsoft.Extensions.Configuration;
 
 namespace SyncRepositories.Services;
 

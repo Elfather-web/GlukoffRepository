@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using Dapper;
-using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using TableAttribute = System.ComponentModel.DataAnnotations.Schema.TableAttribute;
 
@@ -13,7 +12,6 @@ public abstract class MySqlRepository<TEntity> : IRepository<TEntity>
 
     public MySqlRepository(string connection)
     {
-
         _connection = connection;
     }
 
