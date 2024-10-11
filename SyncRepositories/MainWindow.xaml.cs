@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Documents;
 using DataAcces;
+using GlukoffRepository.DataAccess;
 using Newtonsoft.Json;
 using SyncRepositories.Services;
 using Order = Mysqlx.Crud.Order;
@@ -35,12 +36,32 @@ public partial class MainWindow : Window
 
         var localBuff = localorders.Select(l => BuffOrder.FromLocal(l)).ToHashSet();
         var remoteBuff = remoteorders.Select(r => BuffOrder.FromRemote(r)).ToHashSet();
+       
         var resultbuff = localBuff.Except(remoteBuff);
-
-
-        //получаем айди заказов из ремутордерс.ToHashSet(); 
+        
+       
+        var remoteidorders = remoteBuff.Select(r => r.Id).ToHashSet();
+        
         //Для каждого в резалтбафф проверяем есть ли он на ремуте по айди
-        //если есть обновляем если нет заливаем
+        foreach (var result in resultbuff)
+        {
+            if (remoteidorders.Contains(result.Id))
+            {
+                //если есть обновляем
+                var updateorder = new RemoteOrder(Convert.ToInt32(result.Id), result.Tittle, result.Status,
+                    result.DateOrder);
+                await remote.UpdateOrderAsync(updateorder);
+
+            }
+            else
+            {
+                //если нет заливаем
+                var insertorder = new RemoteOrder(Convert.ToInt32(result.Id), result.Tittle, result.Status, result.DateOrder);
+                await remote.CreateOrderAsync(insertorder);
+            }
+            
+
+        }
         
     }
 }

@@ -8,3 +8,4 @@ public record LocalOrder(
     [property: Column("Data_priema")] string DateOrder,
     [property: Column("WhatRemont")] string Tittle,
     [property: Column("Status_remonta")] string Status);
+
