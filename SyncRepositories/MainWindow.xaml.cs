@@ -59,9 +59,16 @@ public partial class MainWindow : Window
                 var insertorder = new RemoteOrder(Convert.ToInt32(result.Id), result.Tittle, result.Status, result.DateOrder);
                 await remote.CreateOrderAsync(insertorder);
             }
-            
+
+            await Task.Delay(500); //убрать после тестов
 
         }
         
     }
+    //1) получить доступ к базам данных, скопировать данные в свою. https://stackoverflow.com/questions/22381577/mysql-workbench-how-to-export-mysql-database-to-sql-file
+    //2) сделать отсечку
+    //3) пашины корриктировки по базе данных(по заказам)
+    //4) протестировать
+    //5) еще раз сделать дамп перед продакшеном
+    
 }

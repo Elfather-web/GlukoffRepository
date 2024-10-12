@@ -1,6 +1,0 @@
-@GlukoffRepository_HostAddress = http://localhost:5128
-
-GET {{GlukoffRepository_HostAddress}}/LocalOrder/
-Accept: application/json
-
-###

@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlukoffRepository", "GlukoffRepository\GlukoffRepository.csproj", "{4EF2170D-6C99-4D20-A69D-6765EA210C58}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAcces", "DataAcces\DataAcces.csproj", "{1C763F2B-94E5-44F1-8043-ECD2B28A9FD7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncRepositories", "SyncRepositories\SyncRepositories.csproj", "{F0BB3246-DDA2-41FD-9ACB-3BB196D050DC}"
@@ -12,10 +10,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4EF2170D-6C99-4D20-A69D-6765EA210C58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4EF2170D-6C99-4D20-A69D-6765EA210C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4EF2170D-6C99-4D20-A69D-6765EA210C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4EF2170D-6C99-4D20-A69D-6765EA210C58}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1C763F2B-94E5-44F1-8043-ECD2B28A9FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C763F2B-94E5-44F1-8043-ECD2B28A9FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C763F2B-94E5-44F1-8043-ECD2B28A9FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
