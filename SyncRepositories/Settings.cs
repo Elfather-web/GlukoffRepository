@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GlukoffRepository.DataAccess;
+using Newtonsoft.Json;
 
 namespace SyncRepositories;
 
@@ -9,14 +10,25 @@ public class Settings
     [JsonProperty("Logging")] public Logging Logging { get; set; }
 
     [JsonProperty("AllowedHosts")] public string AllowedHosts { get; set; }
+
+    internal string GetConnection(string json)
+    {
+        return Crypter.Decrypt(json);
+    }
+    internal string SetConnection(string json)
+    {
+        return Crypter.Encrypt(json);
+    }
+    
+    
+    
 }
 
 public class ConnectionStrings
 {
     [JsonProperty("LocalOrderConnection")] public string LocalOrderConnection { get; set; }
 
-    [JsonProperty("RemoteOrderConnection")]
-    public string RemoteOrderConnection { get; set; }
+    [JsonProperty("RemoteOrderConnection")] public string RemoteOrderConnection { get; set; }
 }
 
 public class Logging

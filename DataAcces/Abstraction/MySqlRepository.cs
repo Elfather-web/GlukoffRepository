@@ -53,8 +53,8 @@ public abstract class MySqlRepository<TEntity> : IRepository<TEntity>
     {
         using var connection = new MySqlConnection(_connection);
         await connection.ExecuteAsync(
-            "INSERT INTO fdT234Tf_statusoforders (orderid, ordertittle, orderstatus, orderdate) " +
-            "VALUES (@Id, @Tittle, @Status, @DateOrder)", entity);
+            "INSERT INTO fdT234Tf_statusoforders (orderid, ordertitle, orderstatus, orderdate, barcode) " +
+            "VALUES (@Id, @Title, @Status, @DateOrder, @Barcode)", entity);
     }
 
     public async Task UpdateAsync(TEntity entity, CancellationToken token)
@@ -62,8 +62,9 @@ public abstract class MySqlRepository<TEntity> : IRepository<TEntity>
         using var connection = new MySqlConnection(_connection);
         await connection.ExecuteAsync("UPDATE fdT234Tf_statusoforders set  " +
                                       "orderdate = @DateOrder, " +
-                                      "ordertittle = @Tittle, " +
-                                      "orderstatus = @Status where orderid=@Id", entity);
+                                      "ordertitle = @Title, " +
+                                      "orderstatus = @Status, Barcode = @Barcode " +
+                                      "where orderid=@Id", entity);
     }
 
     public async Task DeleteAsync(TEntity entity, CancellationToken token)

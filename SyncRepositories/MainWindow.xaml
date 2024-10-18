@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="OrderUpdate" Height="200" Width="450">
+        Title="GlukOffUpdate" Height="200" Width="450">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -18,6 +18,6 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Button Grid.Column="1" Grid.Row="1"  FontSize="15" FontWeight="UltraLight"  x:Name="Upload" Click="Upload_OnClick">Залить заявки</Button>
-        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" FontWeight="UltraLight" Text="GlukOffRepositories"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" FontWeight="UltraLight" Text="GlukOff.Net"></TextBlock>
     </Grid>
 </Window>
