@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+       
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,7 +14,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Hardcodet.Wpf.TaskbarNotification" Version="1.0.5" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="System.Resources.Extensions" Version="9.0.0-rc.2.24473.5" />
+        <PackageReference Include="TrayIcon" Version="1.1.1.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -24,5 +28,20 @@
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         </None>
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="main.ico" />
+      <Resource Include="main.ico">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Resource>
+    </ItemGroup>
+
+   
+
+    
+
+  
+
+   
 
 </Project>

@@ -13,6 +13,7 @@ public class GlukoffOrdersRepository : MySqlRepository<RemoteOrder>, IServiceMsq
     {
         return SelectAsyncRows(CancellationToken.None);
     }
+    
 
     public Task<RemoteOrder> GetOrderAsync(int orderId)
     {
